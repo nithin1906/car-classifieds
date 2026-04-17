@@ -13,6 +13,7 @@ export interface Car {
   vin: string;
   imageUrl: string;
   description: string;
+  bodyType: "SUV" | "Sedan" | "Hatchback" | "Luxury" | "EV";
 }
 
 export const cars: Car[] = [
@@ -30,7 +31,8 @@ export const cars: Car[] = [
     condition: "Excellent",
     vin: "MA3F1234567890",
     imageUrl: "/images/car-swift-red.png",
-    description: "Well-maintained Swift with low mileage. Perfect for city driving and fuel efficiency. Comes with a complete service history."
+    description: "Well-maintained Swift with low mileage. Perfect for city driving and fuel efficiency. Comes with a complete service history.",
+    bodyType: "Hatchback"
   },
   {
     id: "2",
@@ -46,7 +48,8 @@ export const cars: Car[] = [
     condition: "Certified",
     vin: "MATN9876543210",
     imageUrl: "/images/car-nexon-ev.webp",
-    description: "Future of driving! Tata Nexon EV with long range and fast charging. Eco-friendly and extremely smooth to drive."
+    description: "Future of driving! Tata Nexon EV with long range and fast charging. Eco-friendly and extremely smooth to drive.",
+    bodyType: "EV"
   },
   {
     id: "3",
@@ -62,7 +65,8 @@ export const cars: Car[] = [
     condition: "Excellent",
     vin: "MAMX1122334455",
     imageUrl: "/images/car-xuv700.webp",
-    description: "The ultimate SUV experience. Packed with tech features and safety. Powerful engine and premium interior."
+    description: "The ultimate SUV experience. Packed with tech features and safety. Powerful engine and premium interior.",
+    bodyType: "SUV"
   },
   {
     id: "4",
@@ -78,7 +82,8 @@ export const cars: Car[] = [
     condition: "Excellent",
     vin: "MALH5566778899",
     imageUrl: "/images/car-creta.webp",
-    description: "Popular SUV with great road presence. Comfortable ride quality and feature-rich cabin. Ideal for families."
+    description: "Popular SUV with great road presence. Comfortable ride quality and feature-rich cabin. Ideal for families.",
+    bodyType: "SUV"
   },
   {
     id: "5",
@@ -94,7 +99,8 @@ export const cars: Car[] = [
     condition: "Good",
     vin: "MATY9988776655",
     imageUrl: "/images/car-fortuner.webp",
-    description: "The king of SUVs. Unmatched reliability and off-road capability. Spacious 7-seater with robust build quality."
+    description: "The king of SUVs. Unmatched reliability and off-road capability. Spacious 7-seater with robust build quality.",
+    bodyType: "SUV"
   },
   {
     id: "6",
@@ -110,7 +116,8 @@ export const cars: Car[] = [
     condition: "Excellent",
     vin: "MAKK3344556677",
     imageUrl: "/images/car-seltos.webp",
-    description: "Modern and stylish compact SUV. Great tech features and eye-catching design. Smooth handling and comfortable seats."
+    description: "Modern and stylish compact SUV. Great tech features and eye-catching design. Smooth handling and comfortable seats.",
+    bodyType: "SUV"
   },
   {
     id: "7",
@@ -126,7 +133,8 @@ export const cars: Car[] = [
     condition: "Certified",
     vin: "MA3F5544332211",
     imageUrl: "/images/car-swift.webp",
-    description: "Premium hatchback with modern tech. Spacious cabin and smooth AMT gearbox. Great fuel efficiency for daily commutes."
+    description: "Premium hatchback with modern tech. Spacious cabin and smooth AMT gearbox. Great fuel efficiency for daily commutes.",
+    bodyType: "Hatchback"
   },
   {
     id: "8",
@@ -142,7 +150,8 @@ export const cars: Car[] = [
     condition: "Excellent",
     vin: "MAHC1122334455",
     imageUrl: "/images/car-honda-city.png",
-    description: "The classic sedan. Comfortable, reliable, and smooth engine performance. Premium feel and great resale value."
+    description: "The classic sedan. Comfortable, reliable, and smooth engine performance. Premium feel and great resale value.",
+    bodyType: "Sedan"
   },
   {
     id: "9",
@@ -158,6 +167,7 @@ export const cars: Car[] = [
     condition: "Excellent",
     vin: "MASK8877665544",
     imageUrl: "/images/car-slavia.webp",
-    description: "Dynamic performance and elegant design. The 1.0L TSI engine offers a punchy drive with great European build quality."
+    description: "Dynamic performance and elegant design. The 1.0L TSI engine offers a punchy drive with great European build quality.",
+    bodyType: "Sedan"
   }
 ];

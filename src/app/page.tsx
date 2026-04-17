@@ -26,9 +26,14 @@ export default function Home() {
 
   const filteredCars = useMemo(() => {
     let result = cars.filter((car) => {
+      const searchLower = searchTerm.toLowerCase();
       const matchesSearch =
-        car.make.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        car.model.toLowerCase().includes(searchTerm.toLowerCase());
+        car.make.toLowerCase().includes(searchLower) ||
+        car.model.toLowerCase().includes(searchLower) ||
+        car.fuel.toLowerCase().includes(searchLower) ||
+        car.bodyType.toLowerCase().includes(searchLower) ||
+        car.transmission.toLowerCase().includes(searchLower) ||
+        car.description.toLowerCase().includes(searchLower);
 
       const matchesMake = makeFilter === "" || car.make === makeFilter;
 
