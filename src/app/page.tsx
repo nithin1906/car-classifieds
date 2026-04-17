@@ -58,6 +58,26 @@ export default function Home() {
     setIsModalOpen(true);
   };
 
+  // Auto-scroll to listings when searching
+  React.useEffect(() => {
+    if (searchTerm.trim() !== "") {
+      const listingsSection = document.getElementById("listings");
+      if (listingsSection) {
+        const headerOffset = 100; // Account for fixed header
+        const elementPosition = listingsSection.getBoundingClientRect().top;
+        const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+
+        // Only scroll if we are currently above the listings section
+        if (window.pageYOffset < offsetPosition - 100) {
+          window.scrollTo({
+            top: offsetPosition,
+            behavior: "smooth"
+          });
+        }
+      }
+    }
+  }, [searchTerm]);
+
   const handleCloseModal = () => {
     setIsModalOpen(false);
     // Don't null selectedCar immediately to allow exit animation to complete if needed
