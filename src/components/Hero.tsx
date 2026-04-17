@@ -8,9 +8,9 @@ export const Hero: React.FC = () => {
   return (
     <section className="relative pt-32 md:pt-48 pb-20 md:pb-32 border-b border-zinc-100 bg-white overflow-hidden">
       {/* Background patterns and gradients */}
-      <div className="absolute inset-0 bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:16px_16px] [mask-image:radial-gradient(ellipse_50%_50%_at_50%_50%,#000_70%,transparent_100%)] opacity-20" />
-      <div className="absolute top-0 left-0 right-0 h-64 bg-gradient-to-b from-zinc-50 to-transparent" />
-      <div className="absolute -bottom-24 -right-24 w-96 h-96 bg-red-600/5 rounded-full blur-3xl" />
+      <div className="absolute inset-0 bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:16px_16px] [mask-image:radial-gradient(ellipse_50%_50%_at_50%_50%,#000_70%,transparent_100%)] opacity-20 pointer-events-none" />
+      <div className="absolute top-0 left-0 right-0 h-64 bg-gradient-to-b from-zinc-50 to-transparent pointer-events-none" />
+      <div className="absolute -bottom-24 -right-24 w-96 h-96 bg-red-600/5 rounded-full blur-3xl pointer-events-none" />
 
       <div className="container mx-auto px-4 text-center">
         <motion.div
@@ -31,18 +31,34 @@ export const Hero: React.FC = () => {
           </p>
           
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-16 md:mb-20">
-            <a 
-              href="#listings" 
+            <button 
+              onClick={() => {
+                const element = document.getElementById("listings");
+                if (element) {
+                  const headerOffset = 100;
+                  const elementPosition = element.getBoundingClientRect().top;
+                  const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+                  window.scrollTo({ top: offsetPosition, behavior: "smooth" });
+                }
+              }}
               className="w-full sm:w-auto px-8 h-12 bg-zinc-900 text-white text-[10px] font-black uppercase tracking-[0.2em] flex items-center justify-center hover:bg-zinc-800 transition-colors"
             >
               Browse Inventory
-            </a>
-            <a 
-              href="#request-car" 
+            </button>
+            <button 
+              onClick={() => {
+                const element = document.getElementById("request-car");
+                if (element) {
+                  const headerOffset = 100;
+                  const elementPosition = element.getBoundingClientRect().top;
+                  const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+                  window.scrollTo({ top: offsetPosition, behavior: "smooth" });
+                }
+              }}
               className="w-full sm:w-auto px-8 h-12 border border-zinc-200 text-zinc-900 text-[10px] font-black uppercase tracking-[0.2em] flex items-center justify-center hover:bg-zinc-50 transition-colors"
             >
               Request Custom Sourcing
-            </a>
+            </button>
           </div>
         </motion.div>
 
