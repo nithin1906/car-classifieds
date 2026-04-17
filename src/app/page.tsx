@@ -7,16 +7,25 @@ import { CarGrid } from "@/components/CarGrid";
 import { CarDetailModal } from "@/components/CarDetailModal";
 import { CarRequestSection } from "@/components/CarRequestSection";
 import { cars, Car } from "@/data/cars";
+import { CarFront, Banknote, ListFilter } from "lucide-react";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 export default function Home() {
   const [searchTerm, setSearchTerm] = useState("");
   const [makeFilter, setMakeFilter] = useState("");
   const [priceFilter, setPriceFilter] = useState("");
+  const [sortBy, setSortBy] = useState("newest");
   const [selectedCar, setSelectedCar] = useState<Car | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const filteredCars = useMemo(() => {
-    return cars.filter((car) => {
+    let result = cars.filter((car) => {
       const matchesSearch =
         car.make.toLowerCase().includes(searchTerm.toLowerCase()) ||
         car.model.toLowerCase().includes(searchTerm.toLowerCase());
@@ -29,7 +38,15 @@ export default function Home() {
 
       return matchesSearch && matchesMake && matchesPrice;
     });
-  }, [searchTerm, makeFilter, priceFilter]);
+
+    // Apply sorting
+    return [...result].sort((a, b) => {
+      if (sortBy === "price-low") return a.price - b.price;
+      if (sortBy === "price-high") return b.price - a.price;
+      if (sortBy === "mileage") return a.mileage - b.mileage;
+      return 0; // Default (data order is usually newest)
+    });
+  }, [searchTerm, makeFilter, priceFilter, sortBy]);
 
   const handleCarSelect = (car: Car) => {
     setSelectedCar(car);
@@ -42,26 +59,80 @@ export default function Home() {
   };
 
   return (
-    <main className="min-h-screen bg-background">
+    <main className="min-h-screen bg-white">
       <Header
         searchTerm={searchTerm}
         setSearchTerm={setSearchTerm}
-        makeFilter={makeFilter}
-        setMakeFilter={setMakeFilter}
-        priceFilter={priceFilter}
-        setPriceFilter={setPriceFilter}
       />
 
       <Hero />
 
-      <div id="listings" className="container mx-auto px-4 py-20">
-        <div className="flex items-center justify-between mb-12 border-b border-zinc-100 pb-8">
-          <h2 className="text-3xl font-black uppercase tracking-tighter text-zinc-900">
-            Available Listings
-            <span className="ml-4 px-3 py-1 bg-zinc-100 text-zinc-500 text-[10px] font-black tracking-widest uppercase align-middle">
-              {filteredCars.length} Units
-            </span>
-          </h2>
+      <div className="bg-zinc-50/50">
+        <div id="listings" className="container mx-auto px-4 py-20 md:py-32">
+          <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 border-b border-zinc-200 pb-8 gap-6">
+            <h2 className="text-3xl md:text-4xl font-black uppercase tracking-tighter text-zinc-900">
+              Available Listings
+              <span className="ml-4 px-3 py-1 bg-zinc-900 text-white text-[10px] font-black tracking-widest uppercase align-middle">
+                {filteredCars.length} Units
+              </span>
+            </h2>
+
+          <div className="flex flex-wrap items-center gap-3">
+            <div className="flex items-center gap-2">
+              <Select value={makeFilter} onValueChange={(val) => setMakeFilter(val ?? "")}>
+                <SelectTrigger className="w-[140px] bg-white border-zinc-200 text-[10px] font-black uppercase tracking-wider h-10 rounded-none focus:ring-0 focus:border-red-600 transition-all">
+                  <div className="flex items-center gap-2">
+                    <CarFront className="h-3.5 w-3.5 text-zinc-400" />
+                    <SelectValue placeholder="ALL MAKES" />
+                  </div>
+                </SelectTrigger>
+                <SelectContent className="bg-white border-zinc-200">
+                  <SelectItem value="">ALL MAKES</SelectItem>
+                  <SelectItem value="Maruti Suzuki">MARUTI SUZUKI</SelectItem>
+                  <SelectItem value="Tata">TATA</SelectItem>
+                  <SelectItem value="Mahindra">MAHINDRA</SelectItem>
+                  <SelectItem value="Hyundai">HYUNDAI</SelectItem>
+                  <SelectItem value="Toyota">TOYOTA</SelectItem>
+                  <SelectItem value="Kia">KIA</SelectItem>
+                  <SelectItem value="Honda">HONDA</SelectItem>
+                  <SelectItem value="Skoda">SKODA</SelectItem>
+                </SelectContent>
+              </Select>
+
+              <Select value={priceFilter} onValueChange={(val) => setPriceFilter(val ?? "")}>
+                <SelectTrigger className="w-[160px] bg-white border-zinc-200 text-[10px] font-black uppercase tracking-wider h-10 rounded-none focus:ring-0 focus:border-red-600 transition-all">
+                  <div className="flex items-center gap-2">
+                    <Banknote className="h-3.5 w-3.5 text-zinc-400" />
+                    <SelectValue placeholder="BUDGET" />
+                  </div>
+                </SelectTrigger>
+                <SelectContent className="bg-white border-zinc-200">
+                  <SelectItem value="">ALL PRICES</SelectItem>
+                  <SelectItem value="10">UNDER ₹10 LAKH</SelectItem>
+                  <SelectItem value="15">UNDER ₹15 LAKH</SelectItem>
+                  <SelectItem value="25">UNDER ₹25 LAKH</SelectItem>
+                  <SelectItem value="50">UNDER ₹50 LAKH</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+
+            <div className="w-[1px] h-6 bg-zinc-200 hidden sm:block mx-1"></div>
+
+            <Select value={sortBy} onValueChange={(val) => setSortBy(val ?? "newest")}>
+              <SelectTrigger className="w-[160px] bg-zinc-50 border-transparent text-[10px] font-black uppercase tracking-wider h-10 rounded-none focus:ring-0 transition-all">
+                <div className="flex items-center gap-2">
+                  <ListFilter className="h-3.5 w-3.5 text-zinc-400" />
+                  <SelectValue placeholder="SORT BY" />
+                </div>
+              </SelectTrigger>
+              <SelectContent className="bg-white border-zinc-200">
+                <SelectItem value="newest">LATEST ARRIVALS</SelectItem>
+                <SelectItem value="price-low">PRICE: LOW TO HIGH</SelectItem>
+                <SelectItem value="price-high">PRICE: HIGH TO LOW</SelectItem>
+                <SelectItem value="mileage">LOWEST MILEAGE</SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
         </div>
 
         <CarGrid
@@ -69,6 +140,7 @@ export default function Home() {
           onCarSelect={handleCarSelect}
         />
       </div>
+</div>
 
       <div id="request-car">
         <CarRequestSection />

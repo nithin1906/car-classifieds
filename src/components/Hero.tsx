@@ -6,7 +6,12 @@ import { ShieldCheck, Zap, CreditCard } from "lucide-react";
 
 export const Hero: React.FC = () => {
   return (
-    <section className="relative pt-16 md:pt-24 pb-12 md:pb-20 border-b border-zinc-100 bg-white overflow-hidden">
+    <section className="relative pt-32 md:pt-48 pb-20 md:pb-32 border-b border-zinc-100 bg-white overflow-hidden">
+      {/* Background patterns and gradients */}
+      <div className="absolute inset-0 bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:16px_16px] [mask-image:radial-gradient(ellipse_50%_50%_at_50%_50%,#000_70%,transparent_100%)] opacity-20" />
+      <div className="absolute top-0 left-0 right-0 h-64 bg-gradient-to-b from-zinc-50 to-transparent" />
+      <div className="absolute -bottom-24 -right-24 w-96 h-96 bg-red-600/5 rounded-full blur-3xl" />
+
       <div className="container mx-auto px-4 text-center">
         <motion.div
           initial={{ opacity: 0, y: 10 }}

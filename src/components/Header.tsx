@@ -1,94 +1,50 @@
 "use client";
 
 import React from "react";
-import { Search, Car, Menu, CarFront, Banknote } from "lucide-react";
+import { Search, Car, Menu } from "lucide-react";
 import { Input } from "@/components/ui/input";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
 import { Button } from "@/components/ui/button";
 
 interface HeaderProps {
   searchTerm: string;
   setSearchTerm: (value: string) => void;
-  makeFilter: string;
-  setMakeFilter: (value: string) => void;
-  priceFilter: string;
-  setPriceFilter: (value: string) => void;
 }
 
 export const Header: React.FC<HeaderProps> = ({
   searchTerm,
   setSearchTerm,
-  makeFilter,
-  setMakeFilter,
-  priceFilter,
-  setPriceFilter,
 }) => {
   const [isMobileSearchVisible, setIsMobileSearchVisible] = React.useState(false);
 
   return (
-    <header className="sticky top-0 z-50 w-full bg-zinc-800 text-white border-b border-zinc-700 transition-all duration-300">
-      <div className="container mx-auto px-4 sm:px-6">
-        <div className="flex h-16 md:h-20 items-center justify-between gap-4">
+    <header className="fixed top-0 left-0 right-0 z-50 bg-zinc-900/95 backdrop-blur-md border-b border-zinc-800">
+      {/* Premium accent gradient */}
+      <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-red-600/50 to-transparent" />
+      
+      <div className="container mx-auto px-4">
+        <div className="flex items-center justify-between h-20 md:h-24">
           {/* Logo */}
           <div className="flex items-center gap-2 flex-shrink-0">
             <div className="bg-red-600 p-1.5 rounded-sm">
               <Car className="h-5 w-5 md:h-6 md:w-6 text-white" />
             </div>
-            <span className="text-lg md:text-xl font-bold tracking-tight">
+            <span className="text-lg md:text-xl font-bold tracking-tight text-white">
               DriveMarket <span className="text-white/70 hidden sm:inline">India</span>
             </span>
           </div>
 
           {/* Search Bar - Desktop */}
-          <div className="hidden md:flex flex-1 max-w-md relative group mx-4">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-zinc-500 group-focus-within:text-white transition-colors" />
-            <Input
-              placeholder="Search make or model..."
-              className="pl-10 bg-zinc-900 border-zinc-700 text-sm text-white placeholder:text-zinc-500 focus:border-red-600 transition-all rounded-sm h-10"
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-            />
-          </div>
-
-          {/* Filters - Desktop */}
-          <div className="hidden lg:flex items-center gap-2">
-            <Select value={makeFilter} onValueChange={(val) => setMakeFilter(val ?? "")}>
-              <SelectTrigger className="w-[130px] bg-zinc-900 border-zinc-700 text-xs text-white rounded-sm h-10">
-                <CarFront className="h-3.5 w-3.5 mr-2 text-zinc-400" />
-                <SelectValue placeholder="Make" />
-              </SelectTrigger>
-              <SelectContent className="bg-zinc-900 border-zinc-700 text-white">
-                <SelectItem value="">Make</SelectItem>
-                <SelectItem value="Maruti Suzuki">Maruti Suzuki</SelectItem>
-                <SelectItem value="Tata">Tata</SelectItem>
-                <SelectItem value="Mahindra">Mahindra</SelectItem>
-                <SelectItem value="Hyundai">Hyundai</SelectItem>
-                <SelectItem value="Toyota">Toyota</SelectItem>
-                <SelectItem value="Kia">Kia</SelectItem>
-                <SelectItem value="Honda">Honda</SelectItem>
-                <SelectItem value="Skoda">Skoda</SelectItem>
-              </SelectContent>
-            </Select>
-
-            <Select value={priceFilter} onValueChange={(val) => setPriceFilter(val ?? "")}>
-              <SelectTrigger className="w-[150px] bg-zinc-900 border-zinc-700 text-xs text-white rounded-sm h-10">
-                <Banknote className="h-3.5 w-3.5 mr-2 text-zinc-400" />
-                <SelectValue placeholder="Price" />
-              </SelectTrigger>
-              <SelectContent className="bg-zinc-900 border-zinc-700 text-white">
-                <SelectItem value="">Price</SelectItem>
-                <SelectItem value="10">Under ₹10 Lakh</SelectItem>
-                <SelectItem value="15">Under ₹15 Lakh</SelectItem>
-                <SelectItem value="25">Under ₹25 Lakh</SelectItem>
-                <SelectItem value="50">Under ₹50 Lakh</SelectItem>
-              </SelectContent>
-            </Select>
+          <div className="hidden md:flex flex-1 max-w-xl relative group mx-4 lg:mx-8">
+            <div className="absolute -inset-0.5 bg-gradient-to-r from-red-600 to-red-900 rounded-sm blur opacity-0 group-focus-within:opacity-20 transition duration-500"></div>
+            <div className="relative flex items-center w-full">
+              <Search className="absolute left-4 h-4 w-4 text-zinc-500 group-focus-within:text-red-500 transition-colors" />
+              <Input
+                placeholder="Search premium vehicles (e.g. BMW, SUV, Petrol)..."
+                className="pl-12 bg-zinc-900/50 border-zinc-700 text-sm text-white placeholder:text-zinc-500 focus:border-red-600 focus:ring-0 transition-all rounded-none h-12 w-full"
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+              />
+            </div>
           </div>
 
           {/* Actions */}
@@ -103,7 +59,7 @@ export const Header: React.FC<HeaderProps> = ({
             </Button>
             
             <div className="hidden sm:block">
-              <Button className="bg-red-600 text-white hover:bg-red-700 rounded-sm font-bold px-4 md:px-6 h-9 md:h-10 text-xs md:text-sm">
+              <Button className="bg-red-600 text-white hover:bg-red-700 rounded-none font-black uppercase tracking-widest px-6 h-12 text-xs border-none shadow-lg shadow-red-600/10">
                 Sell Your Car
               </Button>
             </div>
@@ -114,47 +70,25 @@ export const Header: React.FC<HeaderProps> = ({
           </div>
         </div>
 
-        {/* Mobile Search/Filter Area */}
+        {/* Mobile Search Area */}
         {isMobileSearchVisible && (
-          <div className="md:hidden pb-4 pt-2 border-t border-zinc-700 animate-in slide-in-from-top-2 duration-200">
-            <div className="space-y-3">
-              <div className="relative">
-                <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-zinc-500" />
+          <div className="md:hidden pb-6 pt-2 border-t border-zinc-800 animate-in slide-in-from-top-2 duration-200">
+            <div className="relative group">
+              <div className="absolute -inset-0.5 bg-gradient-to-r from-red-600 to-red-900 rounded-sm blur opacity-10 transition duration-500"></div>
+              <div className="relative flex items-center w-full">
+                <Search className="absolute left-4 h-4 w-4 text-zinc-500" />
                 <Input
                   placeholder="Search make or model..."
-                  className="pl-10 bg-zinc-900 border-zinc-700 text-sm text-white placeholder:text-zinc-500 rounded-sm h-11"
+                  className="pl-12 bg-zinc-900 border-zinc-700 text-sm text-white placeholder:text-zinc-500 focus:border-red-600 focus:ring-0 transition-all rounded-none h-12 w-full"
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
                 />
-              </div>
-              <div className="grid grid-cols-2 gap-2">
-                <Select value={makeFilter} onValueChange={(val) => setMakeFilter(val ?? "")}>
-                  <SelectTrigger className="w-full bg-zinc-900 border-zinc-700 text-xs text-white rounded-sm h-11">
-                    <SelectValue placeholder="Make" />
-                  </SelectTrigger>
-                  <SelectContent className="bg-zinc-900 border-zinc-700 text-white">
-                    <SelectItem value="">All Makes</SelectItem>
-                    <SelectItem value="Maruti Suzuki">Maruti Suzuki</SelectItem>
-                    <SelectItem value="Tata">Tata</SelectItem>
-                    <SelectItem value="Mahindra">Mahindra</SelectItem>
-                    <SelectItem value="Hyundai">Hyundai</SelectItem>
-                  </SelectContent>
-                </Select>
-                <Select value={priceFilter} onValueChange={(val) => setPriceFilter(val ?? "")}>
-                  <SelectTrigger className="w-full bg-zinc-900 border-zinc-700 text-xs text-white rounded-sm h-11">
-                    <SelectValue placeholder="Price Range" />
-                  </SelectTrigger>
-                  <SelectContent className="bg-zinc-900 border-zinc-700 text-white">
-                    <SelectItem value="">All Prices</SelectItem>
-                    <SelectItem value="10">Under ₹10L</SelectItem>
-                    <SelectItem value="25">Under ₹25L</SelectItem>
-                  </SelectContent>
-                </Select>
               </div>
             </div>
           </div>
         )}
       </div>
     </header>
+
   );
 };

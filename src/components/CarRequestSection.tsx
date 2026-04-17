@@ -148,7 +148,7 @@ export const CarRequestSection: React.FC = () => {
                   ) : (
                     <div className="flex items-center gap-3">
                       <Search className="h-5 w-5" />
-                      <span>Initiate Custom Search</span>
+                      <span>Register Sourcing Interest</span>
                     </div>
                   )}
                 </Button>
