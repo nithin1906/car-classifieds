@@ -5,6 +5,7 @@ import { Header } from "@/components/Header";
 import { Hero } from "@/components/Hero";
 import { CarGrid } from "@/components/CarGrid";
 import { CarDetailModal } from "@/components/CarDetailModal";
+import { CarRequestSection } from "@/components/CarRequestSection";
 import { cars, Car } from "@/data/cars";
 
 export default function Home() {
@@ -53,7 +54,7 @@ export default function Home() {
 
       <Hero />
 
-      <div className="container mx-auto px-4 py-20">
+      <div id="listings" className="container mx-auto px-4 py-20">
         <div className="flex items-center justify-between mb-12 border-b border-zinc-100 pb-8">
           <h2 className="text-3xl font-black uppercase tracking-tighter text-zinc-900">
             Available Listings
@@ -67,6 +68,10 @@ export default function Home() {
           cars={filteredCars}
           onCarSelect={handleCarSelect}
         />
+      </div>
+
+      <div id="request-car">
+        <CarRequestSection />
       </div>
 
       <CarDetailModal

@@ -20,10 +20,24 @@ export const Hero: React.FC = () => {
             Curated Excellence. <br className="hidden sm:block" />
             Professional Assurance.
           </h1>
-          <p className="text-base md:text-xl text-zinc-500 max-w-2xl mx-auto mb-10 md:mb-12 leading-relaxed px-4">
             Discover a strictly vetted collection of premium pre-owned vehicles. 
             Verified history and multi-point inspections across India.
           </p>
+          
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-16 md:mb-20">
+            <a 
+              href="#listings" 
+              className="w-full sm:w-auto px-8 h-12 bg-zinc-900 text-white text-[10px] font-black uppercase tracking-[0.2em] flex items-center justify-center hover:bg-zinc-800 transition-colors"
+            >
+              Browse Inventory
+            </a>
+            <a 
+              href="#request-car" 
+              className="w-full sm:w-auto px-8 h-12 border border-zinc-200 text-zinc-900 text-[10px] font-black uppercase tracking-[0.2em] flex items-center justify-center hover:bg-zinc-50 transition-colors"
+            >
+              Request Custom Sourcing
+            </a>
+          </div>
         </motion.div>
 
         {/* Stats Row */}

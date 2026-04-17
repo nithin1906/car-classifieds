@@ -2,6 +2,7 @@
 
 import React from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { ArrowRight } from "lucide-react";
 import { CarCard } from "./CarCard";
 import { Car } from "@/data/cars";
 
@@ -13,9 +14,25 @@ interface CarGridProps {
 export const CarGrid: React.FC<CarGridProps> = ({ cars, onCarSelect }) => {
   if (cars.length === 0) {
     return (
-      <div className="flex flex-col items-center justify-center py-32 text-center border border-dashed border-neutral-200 bg-neutral-50">
-        <h3 className="text-xl font-black uppercase tracking-tighter text-neutral-900 mb-2">Zero Matches Found</h3>
-        <p className="text-xs font-bold uppercase tracking-widest text-neutral-400">Please refine your search parameters or reset filters.</p>
+      <div className="flex flex-col items-center justify-center py-24 md:py-32 text-center border border-dashed border-zinc-200 bg-zinc-50 rounded-sm">
+        <h3 className="text-xl md:text-2xl font-black uppercase tracking-tighter text-zinc-900 mb-3">Zero Matches Found</h3>
+        <p className="text-[10px] md:text-xs font-bold uppercase tracking-widest text-zinc-400 mb-8 max-w-xs md:max-w-none">Please refine your search parameters or reset filters.</p>
+        
+        <div className="space-y-4">
+          <p className="text-[10px] font-black uppercase tracking-widest text-zinc-500">Didn't find what you were looking for?</p>
+          <a 
+            href="#request-car" 
+            className="inline-flex items-center gap-3 bg-zinc-900 text-white px-8 h-12 text-[10px] font-black uppercase tracking-[0.2em] hover:bg-red-600 transition-all"
+          >
+            <span>Request a Specific Car</span>
+            <motion.span
+              animate={{ x: [0, 5, 0] }}
+              transition={{ repeat: Infinity, duration: 1.5 }}
+            >
+              <ArrowRight className="h-4 w-4" />
+            </motion.span>
+          </a>
+        </div>
       </div>
     );
   }
