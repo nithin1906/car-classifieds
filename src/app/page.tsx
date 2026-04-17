@@ -1,65 +1,106 @@
-import Image from "next/image";
+"use client";
+
+import React, { useState, useMemo } from "react";
+import { Header } from "@/components/Header";
+import { Hero } from "@/components/Hero";
+import { CarGrid } from "@/components/CarGrid";
+import { CarDetailModal } from "@/components/CarDetailModal";
+import { cars, Car } from "@/data/cars";
 
 export default function Home() {
+  const [searchTerm, setSearchTerm] = useState("");
+  const [makeFilter, setMakeFilter] = useState("");
+  const [priceFilter, setPriceFilter] = useState("");
+  const [selectedCar, setSelectedCar] = useState<Car | null>(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const filteredCars = useMemo(() => {
+    return cars.filter((car) => {
+      const matchesSearch =
+        car.make.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        car.model.toLowerCase().includes(searchTerm.toLowerCase());
+
+      const matchesMake = makeFilter === "" || car.make === makeFilter;
+
+      const matchesPrice =
+        priceFilter === "" ||
+        car.price <= parseFloat(priceFilter);
+
+      return matchesSearch && matchesMake && matchesPrice;
+    });
+  }, [searchTerm, makeFilter, priceFilter]);
+
+  const handleCarSelect = (car: Car) => {
+    setSelectedCar(car);
+    setIsModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+    // Don't null selectedCar immediately to allow exit animation to complete if needed
+  };
+
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
+    <main className="min-h-screen bg-background">
+      <Header
+        searchTerm={searchTerm}
+        setSearchTerm={setSearchTerm}
+        makeFilter={makeFilter}
+        setMakeFilter={setMakeFilter}
+        priceFilter={priceFilter}
+        setPriceFilter={setPriceFilter}
+      />
+
+      <Hero />
+
+      <div className="container mx-auto px-4 py-20">
+        <div className="flex items-center justify-between mb-12 border-b border-zinc-100 pb-8">
+          <h2 className="text-3xl font-black uppercase tracking-tighter text-zinc-900">
+            Available Listings
+            <span className="ml-4 px-3 py-1 bg-zinc-100 text-zinc-500 text-[10px] font-black tracking-widest uppercase align-middle">
+              {filteredCars.length} Units
+            </span>
+          </h2>
+        </div>
+
+        <CarGrid
+          cars={filteredCars}
+          onCarSelect={handleCarSelect}
         />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
+      </div>
+
+      <CarDetailModal
+        car={selectedCar}
+        isOpen={isModalOpen}
+        onClose={handleCloseModal}
+      />
+
+      <footer className="bg-zinc-800 py-20 text-white">
+        <div className="container mx-auto px-4">
+          <div className="flex flex-col md:flex-row justify-between items-center gap-10">
+            <div className="text-center md:text-left">
+              <span className="text-xl font-black tracking-tighter uppercase">
+                DriveMarket <span className="text-red-600">India</span>
+              </span>
+              <p className="text-zinc-400 text-xs font-bold uppercase tracking-widest mt-2">
+                Premium Automotive Intelligence
+              </p>
+            </div>
+
+            <div className="flex gap-10 text-[10px] font-black uppercase tracking-[0.2em] text-zinc-400">
+              <a href="#" className="hover:text-red-600 transition-colors">Privacy</a>
+              <a href="#" className="hover:text-red-600 transition-colors">Compliance</a>
+              <a href="#" className="hover:text-red-600 transition-colors">Support</a>
+            </div>
+          </div>
+
+          <div className="mt-16 pt-8 border-t border-zinc-700 text-center">
+            <p className="text-[10px] font-bold text-zinc-500 uppercase tracking-widest">
+              © 2026 DriveMarket India. Professional Grade Classifieds.
+            </p>
+          </div>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
-    </div>
+      </footer>
+    </main>
   );
 }
