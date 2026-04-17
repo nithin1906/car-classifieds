@@ -20,6 +20,7 @@ export const Hero: React.FC = () => {
             Curated Excellence. <br className="hidden sm:block" />
             Professional Assurance.
           </h1>
+          <p className="text-base md:text-xl text-zinc-500 max-w-2xl mx-auto mb-10 md:mb-12 leading-relaxed px-4">
             Discover a strictly vetted collection of premium pre-owned vehicles. 
             Verified history and multi-point inspections across India.
           </p>
