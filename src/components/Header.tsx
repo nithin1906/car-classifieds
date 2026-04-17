@@ -58,7 +58,7 @@ export const Header: React.FC<HeaderProps> = ({
 
           {/* Filters - Desktop */}
           <div className="hidden lg:flex items-center gap-2">
-            <Select value={makeFilter} onValueChange={setMakeFilter}>
+            <Select value={makeFilter} onValueChange={(val) => setMakeFilter(val ?? "")}>
               <SelectTrigger className="w-[130px] bg-zinc-900 border-zinc-700 text-xs text-white rounded-sm h-10">
                 <CarFront className="h-3.5 w-3.5 mr-2 text-zinc-400" />
                 <SelectValue placeholder="Make" />
@@ -76,7 +76,7 @@ export const Header: React.FC<HeaderProps> = ({
               </SelectContent>
             </Select>
 
-            <Select value={priceFilter} onValueChange={setPriceFilter}>
+            <Select value={priceFilter} onValueChange={(val) => setPriceFilter(val ?? "")}>
               <SelectTrigger className="w-[150px] bg-zinc-900 border-zinc-700 text-xs text-white rounded-sm h-10">
                 <Banknote className="h-3.5 w-3.5 mr-2 text-zinc-400" />
                 <SelectValue placeholder="Price" />
@@ -128,7 +128,7 @@ export const Header: React.FC<HeaderProps> = ({
                 />
               </div>
               <div className="grid grid-cols-2 gap-2">
-                <Select value={makeFilter} onValueChange={setMakeFilter}>
+                <Select value={makeFilter} onValueChange={(val) => setMakeFilter(val ?? "")}>
                   <SelectTrigger className="w-full bg-zinc-900 border-zinc-700 text-xs text-white rounded-sm h-11">
                     <SelectValue placeholder="Make" />
                   </SelectTrigger>
@@ -140,7 +140,7 @@ export const Header: React.FC<HeaderProps> = ({
                     <SelectItem value="Hyundai">Hyundai</SelectItem>
                   </SelectContent>
                 </Select>
-                <Select value={priceFilter} onValueChange={setPriceFilter}>
+                <Select value={priceFilter} onValueChange={(val) => setPriceFilter(val ?? "")}>
                   <SelectTrigger className="w-full bg-zinc-900 border-zinc-700 text-xs text-white rounded-sm h-11">
                     <SelectValue placeholder="Price Range" />
                   </SelectTrigger>

@@ -109,7 +109,7 @@ export const LeadForm: React.FC<LeadFormProps> = ({ car }) => {
           <Label htmlFor="contactMethod" className="text-[9px] md:text-[10px] font-bold uppercase tracking-widest text-neutral-500">Preferred Contact</Label>
           <Select 
             value={formData.contactMethod} 
-            onValueChange={(value) => setFormData({...formData, contactMethod: value})}
+            onValueChange={(value) => setFormData({...formData, contactMethod: value ?? "phone"})}
           >
             <SelectTrigger className="bg-white border-zinc-200 focus:border-red-600 rounded-none h-11 md:h-12 text-xs uppercase tracking-wider">
               <SelectValue />
