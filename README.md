@@ -1,8 +1,30 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# DriveMarket (Car Classifieds)
+
+Welcome to **DriveMarket**, a premium car classifieds marketplace.
+
+> **Note:** This is a **hobby project** built for personal portfolio and educational purposes to explore modern web technologies and UI/UX design.
+
+## Features
+
+- **Modern UI:** Built with [Next.js](https://nextjs.org), utilizing a high-trust, professional aesthetic with neutral color palettes and glassmorphism elements.
+- **Smooth Animations:** Powered by [Framer Motion](https://www.framer.com/motion/) for fluid page transitions and interactive hover effects.
+- **Responsive Design:** Fully mobile-responsive layout crafted with [Tailwind CSS](https://tailwindcss.com), ensuring a seamless experience across all devices.
+- **Analytics:** Integrated with [Vercel Analytics](https://vercel.com/analytics) to monitor page views and core web vitals.
+- **Component Library:** Built with customized UI components, utilizing class-variance-authority and clsx for scalable styling.
 
 ## Getting Started
 
-First, run the development server:
+First, install dependencies:
+
+```bash
+npm install
+# or
+yarn install
+# or
+pnpm install
+```
+
+Then, run the development server:
 
 ```bash
 npm run dev
@@ -10,27 +32,14 @@ npm run dev
 yarn dev
 # or
 pnpm dev
-# or
-bun dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Tech Stack
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- **Framework:** Next.js (App Router)
+- **Styling:** Tailwind CSS, PostCSS
+- **Animations:** Framer Motion, tw-animate-css
+- **Icons:** Lucide React
+- **Deployment:** Vercel
