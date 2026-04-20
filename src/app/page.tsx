@@ -15,6 +15,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { Analytics } from "@vercel/analytics/next"
 
 export default function Home() {
   const [searchTerm, setSearchTerm] = useState("");
@@ -102,70 +103,70 @@ export default function Home() {
               </span>
             </h2>
 
-          <div className="flex flex-wrap items-center gap-3">
-            <div className="flex items-center gap-2">
-              <Select value={makeFilter} onValueChange={(val) => setMakeFilter(val ?? "")}>
-                <SelectTrigger className="w-[140px] bg-white border-zinc-200 text-[10px] font-black uppercase tracking-wider h-10 rounded-none focus:ring-0 focus:border-red-600 transition-all">
-                  <div className="flex items-center gap-2">
-                    <CarFront className="h-3.5 w-3.5 text-zinc-400" />
-                    <SelectValue placeholder="ALL MAKES" />
-                  </div>
-                </SelectTrigger>
-                <SelectContent className="bg-white border-zinc-200">
-                  <SelectItem value="">ALL MAKES</SelectItem>
-                  <SelectItem value="Maruti Suzuki">MARUTI SUZUKI</SelectItem>
-                  <SelectItem value="Tata">TATA</SelectItem>
-                  <SelectItem value="Mahindra">MAHINDRA</SelectItem>
-                  <SelectItem value="Hyundai">HYUNDAI</SelectItem>
-                  <SelectItem value="Toyota">TOYOTA</SelectItem>
-                  <SelectItem value="Kia">KIA</SelectItem>
-                  <SelectItem value="Honda">HONDA</SelectItem>
-                  <SelectItem value="Skoda">SKODA</SelectItem>
-                </SelectContent>
-              </Select>
+            <div className="flex flex-wrap items-center gap-3">
+              <div className="flex items-center gap-2">
+                <Select value={makeFilter} onValueChange={(val) => setMakeFilter(val ?? "")}>
+                  <SelectTrigger className="w-[140px] bg-white border-zinc-200 text-[10px] font-black uppercase tracking-wider h-10 rounded-none focus:ring-0 focus:border-red-600 transition-all">
+                    <div className="flex items-center gap-2">
+                      <CarFront className="h-3.5 w-3.5 text-zinc-400" />
+                      <SelectValue placeholder="ALL MAKES" />
+                    </div>
+                  </SelectTrigger>
+                  <SelectContent className="bg-white border-zinc-200">
+                    <SelectItem value="">ALL MAKES</SelectItem>
+                    <SelectItem value="Maruti Suzuki">MARUTI SUZUKI</SelectItem>
+                    <SelectItem value="Tata">TATA</SelectItem>
+                    <SelectItem value="Mahindra">MAHINDRA</SelectItem>
+                    <SelectItem value="Hyundai">HYUNDAI</SelectItem>
+                    <SelectItem value="Toyota">TOYOTA</SelectItem>
+                    <SelectItem value="Kia">KIA</SelectItem>
+                    <SelectItem value="Honda">HONDA</SelectItem>
+                    <SelectItem value="Skoda">SKODA</SelectItem>
+                  </SelectContent>
+                </Select>
 
-              <Select value={priceFilter} onValueChange={(val) => setPriceFilter(val ?? "")}>
-                <SelectTrigger className="w-[160px] bg-white border-zinc-200 text-[10px] font-black uppercase tracking-wider h-10 rounded-none focus:ring-0 focus:border-red-600 transition-all">
+                <Select value={priceFilter} onValueChange={(val) => setPriceFilter(val ?? "")}>
+                  <SelectTrigger className="w-[160px] bg-white border-zinc-200 text-[10px] font-black uppercase tracking-wider h-10 rounded-none focus:ring-0 focus:border-red-600 transition-all">
+                    <div className="flex items-center gap-2">
+                      <Banknote className="h-3.5 w-3.5 text-zinc-400" />
+                      <SelectValue placeholder="BUDGET" />
+                    </div>
+                  </SelectTrigger>
+                  <SelectContent className="bg-white border-zinc-200">
+                    <SelectItem value="">ALL PRICES</SelectItem>
+                    <SelectItem value="10">UNDER ₹10 LAKH</SelectItem>
+                    <SelectItem value="15">UNDER ₹15 LAKH</SelectItem>
+                    <SelectItem value="25">UNDER ₹25 LAKH</SelectItem>
+                    <SelectItem value="50">UNDER ₹50 LAKH</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+
+              <div className="w-[1px] h-6 bg-zinc-200 hidden sm:block mx-1"></div>
+
+              <Select value={sortBy} onValueChange={(val) => setSortBy(val ?? "newest")}>
+                <SelectTrigger className="w-[160px] bg-zinc-50 border-transparent text-[10px] font-black uppercase tracking-wider h-10 rounded-none focus:ring-0 transition-all">
                   <div className="flex items-center gap-2">
-                    <Banknote className="h-3.5 w-3.5 text-zinc-400" />
-                    <SelectValue placeholder="BUDGET" />
+                    <ListFilter className="h-3.5 w-3.5 text-zinc-400" />
+                    <SelectValue placeholder="SORT BY" />
                   </div>
                 </SelectTrigger>
                 <SelectContent className="bg-white border-zinc-200">
-                  <SelectItem value="">ALL PRICES</SelectItem>
-                  <SelectItem value="10">UNDER ₹10 LAKH</SelectItem>
-                  <SelectItem value="15">UNDER ₹15 LAKH</SelectItem>
-                  <SelectItem value="25">UNDER ₹25 LAKH</SelectItem>
-                  <SelectItem value="50">UNDER ₹50 LAKH</SelectItem>
+                  <SelectItem value="newest">LATEST ARRIVALS</SelectItem>
+                  <SelectItem value="price-low">PRICE: LOW TO HIGH</SelectItem>
+                  <SelectItem value="price-high">PRICE: HIGH TO LOW</SelectItem>
+                  <SelectItem value="mileage">LOWEST MILEAGE</SelectItem>
                 </SelectContent>
               </Select>
             </div>
-
-            <div className="w-[1px] h-6 bg-zinc-200 hidden sm:block mx-1"></div>
-
-            <Select value={sortBy} onValueChange={(val) => setSortBy(val ?? "newest")}>
-              <SelectTrigger className="w-[160px] bg-zinc-50 border-transparent text-[10px] font-black uppercase tracking-wider h-10 rounded-none focus:ring-0 transition-all">
-                <div className="flex items-center gap-2">
-                  <ListFilter className="h-3.5 w-3.5 text-zinc-400" />
-                  <SelectValue placeholder="SORT BY" />
-                </div>
-              </SelectTrigger>
-              <SelectContent className="bg-white border-zinc-200">
-                <SelectItem value="newest">LATEST ARRIVALS</SelectItem>
-                <SelectItem value="price-low">PRICE: LOW TO HIGH</SelectItem>
-                <SelectItem value="price-high">PRICE: HIGH TO LOW</SelectItem>
-                <SelectItem value="mileage">LOWEST MILEAGE</SelectItem>
-              </SelectContent>
-            </Select>
           </div>
-        </div>
 
-        <CarGrid
-          cars={filteredCars}
-          onCarSelect={handleCarSelect}
-        />
+          <CarGrid
+            cars={filteredCars}
+            onCarSelect={handleCarSelect}
+          />
+        </div>
       </div>
-</div>
 
       <div id="request-car">
         <CarRequestSection />
@@ -203,6 +204,7 @@ export default function Home() {
           </div>
         </div>
       </footer>
+      <Analytics />
     </main>
   );
 }
